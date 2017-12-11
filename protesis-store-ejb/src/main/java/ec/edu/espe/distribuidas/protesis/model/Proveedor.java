@@ -5,15 +5,16 @@
  */
 package ec.edu.espe.distribuidas.protesis.model;
 
+import ec.edu.espe.distribuidas.protesis.enums.TipoIdentificacionEnum;
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -28,8 +29,9 @@ public class Proveedor implements Serializable {
     @Id
     @Column(name = "COD_PROVEEDOR", nullable = false)
     private Integer codProveedor;
-    @Column(name = "TIPO_IDENTIFICACION", nullable = false, length = 3)
-    private String tipoIdentificacion;
+    @Enumerated(EnumType.STRING)
+    @Column(name="TIPO", length = 3, nullable = false)
+    private TipoIdentificacionEnum tipo;
     @Column(name = "IDENTIFICACION", nullable = false)
     private long identificacion;
     @Column(name = "NOMBRE", nullable = false, length = 100)
@@ -42,9 +44,11 @@ public class Proveedor implements Serializable {
     private String callePrincipal;
     @Column(name = "CALLE_SECUNDARIA", nullable = false, length = 100)
     private String calleSecundaria;
+    @Column(name = "COD_CIUDAD", nullable = false)
+    private Integer codCiudad;
     @JoinColumn(name = "COD_CIUDAD", referencedColumnName = "COD_CIUDAD", insertable = false, updatable = false)
     @ManyToOne
-    private Ciudad codCiudad;
+    private Ciudad Ciudad;
 
     public Proveedor() {
     }
@@ -62,13 +66,15 @@ public class Proveedor implements Serializable {
         this.codProveedor = codProveedor;
     }
 
-    public String getTipoIdentificacion() {
-        return tipoIdentificacion;
+    public TipoIdentificacionEnum getTipo() {
+        return tipo;
     }
 
-    public void setTipoIdentificacion(String tipoIdentificacion) {
-        this.tipoIdentificacion = tipoIdentificacion;
+    public void setTipo(TipoIdentificacionEnum tipo) {
+        this.tipo = tipo;
     }
+
+ 
 
     public long getIdentificacion() {
         return identificacion;
@@ -118,22 +124,24 @@ public class Proveedor implements Serializable {
         this.calleSecundaria = calleSecundaria;
     }
 
-    @XmlTransient
-    public List<Compra> getCompraList() {
-        return compraList;
-    }
-
-    public void setCompraList(List<Compra> compraList) {
-        this.compraList = compraList;
-    }
-
-    public Ciudad getCodCiudad() {
+    public Integer getCodCiudad() {
         return codCiudad;
     }
 
-    public void setCodCiudad(Ciudad codCiudad) {
+    public void setCodCiudad(Integer codCiudad) {
         this.codCiudad = codCiudad;
     }
+
+    public Ciudad getCiudad() {
+        return Ciudad;
+    }
+
+    public void setCiudad(Ciudad Ciudad) {
+        this.Ciudad = Ciudad;
+    }
+
+
+
 
     @Override
     public int hashCode() {

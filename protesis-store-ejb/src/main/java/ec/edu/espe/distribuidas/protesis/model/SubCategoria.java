@@ -6,7 +6,6 @@
 package ec.edu.espe.distribuidas.protesis.model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -30,9 +28,11 @@ public class SubCategoria implements Serializable {
     private Integer codSubcategoria;
     @Column(name = "DESCRIPCION", nullable = false, length = 200)
     private String descripcion;
+    @Column(name = "COD_CATEGORIA", nullable = false)
+    private Integer codCategoria;
     @JoinColumn(name = "COD_CATEGORIA", referencedColumnName = "COD_CATEGORIA", insertable= false, updatable = false)
     @ManyToOne(fetch = FetchType.EAGER)
-    private Categoria codCategoria;
+    private Categoria Categoria;
 
     public SubCategoria() {
     }
@@ -58,22 +58,24 @@ public class SubCategoria implements Serializable {
         this.descripcion = descripcion;
     }
 
-    @XmlTransient
-    public List<Producto> getProductoList() {
-        return productoList;
-    }
-
-    public void setProductoList(List<Producto> productoList) {
-        this.productoList = productoList;
-    }
-
-    public Categoria getCodCategoria() {
+    public Integer getCodCategoria() {
         return codCategoria;
     }
 
-    public void setCodCategoria(Categoria codCategoria) {
+    public void setCodCategoria(Integer codCategoria) {
         this.codCategoria = codCategoria;
     }
+
+    public Categoria getCategoria() {
+        return Categoria;
+    }
+
+    public void setCategoria(Categoria Categoria) {
+        this.Categoria = Categoria;
+    }
+
+
+
 
     @Override
     public int hashCode() {

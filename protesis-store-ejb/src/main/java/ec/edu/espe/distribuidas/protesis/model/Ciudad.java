@@ -6,14 +6,12 @@
 package ec.edu.espe.distribuidas.protesis.model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -27,11 +25,13 @@ public class Ciudad implements Serializable {
     @Id
     @Column(name = "COD_CIUDAD", nullable = false)
     private Integer codCiudad;
+    @Column(name = "COD_PROVINCIA", nullable = false)
+    private Integer codProvincia;
     @Column(name = "NOMBRE", nullable = false, length = 100)
     private String nombre;
     @JoinColumn(name = "COD_PROVINCIA", referencedColumnName = "COD_PROVINCIA", insertable = false, updatable = false)
     @ManyToOne
-    private Provincia codProvincia;
+    private Provincia Provincia;
 
     public Ciudad() {
     }
@@ -57,31 +57,25 @@ public class Ciudad implements Serializable {
         this.nombre = nombre;
     }
 
-    public Provincia getCodProvincia() {
+    public Integer getCodProvincia() {
         return codProvincia;
     }
 
-    public void setCodProvincia(Provincia codProvincia) {
+    public void setCodProvincia(Integer codProvincia) {
         this.codProvincia = codProvincia;
     }
 
-    @XmlTransient
-    public List<Proveedor> getProveedorList() {
-        return proveedorList;
+    public Provincia getProvincia() {
+        return Provincia;
     }
 
-    public void setProveedorList(List<Proveedor> proveedorList) {
-        this.proveedorList = proveedorList;
+    public void setProvincia(Provincia Provincia) {
+        this.Provincia = Provincia;
     }
 
-    @XmlTransient
-    public List<Usuario> getUsuarioList() {
-        return usuarioList;
-    }
 
-    public void setUsuarioList(List<Usuario> usuarioList) {
-        this.usuarioList = usuarioList;
-    }
+
+
 
     @Override
     public int hashCode() {

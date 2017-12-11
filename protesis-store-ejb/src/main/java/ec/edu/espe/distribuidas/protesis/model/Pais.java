@@ -6,12 +6,10 @@
 package ec.edu.espe.distribuidas.protesis.model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -51,14 +49,7 @@ public class Pais implements Serializable {
         this.nombre = nombre;
     }
 
-    @XmlTransient
-    public List<Region> getRegionList() {
-        return regionList;
-    }
 
-    public void setRegionList(List<Region> regionList) {
-        this.regionList = regionList;
-    }
 
     @Override
     public int hashCode() {

@@ -7,14 +7,12 @@ package ec.edu.espe.distribuidas.protesis.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -29,10 +27,14 @@ public class Venta implements Serializable {
     @Id
     @Column(name = "COD_VENTA", nullable = false)
     private Integer codVenta;
-    @Column(name = "COD_USUARIO")
+    @Column(name = "COD_USUARIO", nullable = false)
     private Integer codUsuario;
-    @Column(name = "COD_PRODUCTO")
+    @Column(name = "COD_PRODUCTO", nullable = false)
     private Integer codProducto;
+     @Column(name = "COD_PAGO",nullable = false )
+    private Integer codPago;
+    @Column(name = "COD_CANAL",nullable = false )
+    private Integer codCanal;
     @Column(name = "FECHA_EMISION", nullable = false)
     private int fechaEmision;
     @Column(name = "CANTIDAD", nullable = false)
@@ -41,27 +43,53 @@ public class Venta implements Serializable {
     private BigDecimal valorFinal;
     @JoinColumn(name = "COD_CANAL", referencedColumnName = "COD_CANAL", insertable = false, updatable = false)
     @ManyToOne
-    private Canal codCanal;
+    private Canal Canal;
     
     @JoinColumn(name = "COD_PAGO", referencedColumnName = "COD_PAGO", insertable = false, updatable = false)
     @ManyToOne
-    private Pago codPago;
+    private Pago Pago;
     
     @JoinColumn(name = "COD_USUARIO", referencedColumnName = "COD_USUARIO", insertable = false, updatable = false)
     @ManyToOne
-    private Usuario codUsuario;
+    private Usuario Usuario;
 
     @JoinColumn(name = "COD_PRODUCTO", referencedColumnName = "COD_PRODUCTO", insertable = false, updatable = false)
     @ManyToOne
-    private Producto codProducto;
-    
-    public Pago getCodPago() {
+    private Producto Producto;
+
+    public Integer getCodPago() {
         return codPago;
     }
 
-    public void setCodPago(Pago codPago) {
+    public void setCodPago(Integer codPago) {
         this.codPago = codPago;
     }
+
+    public Pago getPago() {
+        return Pago;
+    }
+
+    public void setPago(Pago Pago) {
+        this.Pago = Pago;
+    }
+
+    public Usuario getUsuario() {
+        return Usuario;
+    }
+
+    public void setUsuario(Usuario Usuario) {
+        this.Usuario = Usuario;
+    }
+
+    public Producto getProducto() {
+        return Producto;
+    }
+
+    public void setProducto(Producto Producto) {
+        this.Producto = Producto;
+    }
+    
+
 
     public Venta() {
     }
@@ -118,22 +146,24 @@ public class Venta implements Serializable {
         this.valorFinal = valorFinal;
     }
 
-    public Canal getCodCanal() {
+    public Integer getCodCanal() {
         return codCanal;
     }
 
-    public void setCodCanal(Canal codCanal) {
+    public void setCodCanal(Integer codCanal) {
         this.codCanal = codCanal;
     }
 
-    @XmlTransient
-    public List<Entrega> getEntregaList() {
-        return entregaList;
+    public Canal getCanal() {
+        return Canal;
     }
 
-    public void setEntregaList(List<Entrega> entregaList) {
-        this.entregaList = entregaList;
+    public void setCanal(Canal Canal) {
+        this.Canal = Canal;
     }
+
+
+
 
     @Override
     public int hashCode() {

@@ -25,14 +25,18 @@ public class Entrega implements Serializable {
     @Id
     @Column(name = "COD_ENTREGA", nullable = false)
     private Integer codEntrega;
+    @Column(name = "COD_VENTA", nullable = false)
+    private Integer codVenta;
+    @Column(name = "COD_CAMION", nullable = false)
+    private Integer codCamion;
     @Column(name = "DESCRIPCION", nullable = false, length = 200)
     private String descripcion;
     @JoinColumn(name = "COD_VENTA", referencedColumnName = "COD_VENTA", insertable = false, updatable = false)
     @ManyToOne
-    private Venta codVenta;
+    private Venta Venta;
     @JoinColumn(name = "COD_CAMION", referencedColumnName = "COD_CAMION", insertable = false, updatable = false)
     @ManyToOne
-    private Camion codCamion;
+    private Camion Camion;
 
     public Entrega() {
     }
@@ -57,21 +61,38 @@ public class Entrega implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Venta getCodVenta() {
+    public Integer getCodVenta() {
         return codVenta;
     }
 
-    public void setCodVenta(Venta codVenta) {
+    public void setCodVenta(Integer codVenta) {
         this.codVenta = codVenta;
     }
 
-    public Camion getCodCamion() {
+    public Integer getCodCamion() {
         return codCamion;
     }
 
-    public void setCodCamion(Camion codCamion) {
+    public void setCodCamion(Integer codCamion) {
         this.codCamion = codCamion;
     }
+
+    public Venta getVenta() {
+        return Venta;
+    }
+
+    public void setVenta(Venta Venta) {
+        this.Venta = Venta;
+    }
+
+    public Camion getCamion() {
+        return Camion;
+    }
+
+    public void setCamion(Camion Camion) {
+        this.Camion = Camion;
+    }
+
 
     @Override
     public int hashCode() {

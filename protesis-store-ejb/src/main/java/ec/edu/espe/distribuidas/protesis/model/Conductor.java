@@ -5,17 +5,18 @@
  */
 package ec.edu.espe.distribuidas.protesis.model;
 
+import ec.edu.espe.distribuidas.protesis.enums.TipoIdentificacionEnum;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -33,8 +34,9 @@ public class Conductor implements Serializable {
     private String nombre;
     @Column(name = "APELLIDO", nullable = false, length = 100)
     private String apellido;
-    @Column(name = "TIPO_IDENTIFICION", nullable = false, length = 3)
-    private String tipoIdentificion;
+    @Enumerated(EnumType.STRING)
+    @Column(name="TIPO", length = 3, nullable = false)
+    private TipoIdentificacionEnum tipo;
     @Column(name = "IDENTIFICACION", nullable = false)
     private long identificacion;
     @Column(name = "FECHA_NACIMIENTO", nullable = false)
@@ -74,13 +76,15 @@ public class Conductor implements Serializable {
         this.apellido = apellido;
     }
 
-    public String getTipoIdentificion() {
-        return tipoIdentificion;
+    public TipoIdentificacionEnum getTipo() {
+        return tipo;
     }
 
-    public void setTipoIdentificion(String tipoIdentificion) {
-        this.tipoIdentificion = tipoIdentificion;
+    public void setTipo(TipoIdentificacionEnum tipo) {
+        this.tipo = tipo;
     }
+
+  
 
     public long getIdentificacion() {
         return identificacion;
@@ -104,15 +108,6 @@ public class Conductor implements Serializable {
 
     public void setLicencia(BigInteger licencia) {
         this.licencia = licencia;
-    }
-
-    @XmlTransient
-    public List<Camion> getCamionList() {
-        return camionList;
-    }
-
-    public void setCamionList(List<Camion> camionList) {
-        this.camionList = camionList;
     }
 
     @Override

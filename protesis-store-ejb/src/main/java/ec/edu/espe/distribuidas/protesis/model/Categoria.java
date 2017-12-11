@@ -6,12 +6,10 @@
 package ec.edu.espe.distribuidas.protesis.model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -56,14 +54,6 @@ public class Categoria implements Serializable {
         this.nombre = nombre;
     }
 
-    @XmlTransient
-    public List<SubCategoria> getSubCategoriaList() {
-        return subCategoriaList;
-    }
-
-    public void setSubCategoriaList(List<SubCategoria> subCategoriaList) {
-        this.subCategoriaList = subCategoriaList;
-    }
 
     @Override
     public int hashCode() {

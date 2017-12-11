@@ -6,14 +6,12 @@
 package ec.edu.espe.distribuidas.protesis.model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -27,11 +25,13 @@ public class Region implements Serializable {
     @Id
     @Column(name = "COD_REGION", nullable = false)
     private Integer codRegion;
+    @Column(name = "COD_PAIS", nullable = false)
+    private Integer codPais;
     @Column(name = "NOMBRE", nullable = false, length = 100)
     private String nombre;
     @JoinColumn(name = "COD_PAIS", referencedColumnName = "COD_PAIS", insertable = false, updatable = false)
     @ManyToOne
-    private Pais codPais;
+    private Pais Pais;
 
     public Region() {
     }
@@ -57,22 +57,25 @@ public class Region implements Serializable {
         this.nombre = nombre;
     }
 
-    @XmlTransient
-    public List<Provincia> getProvinciaList() {
-        return provinciaList;
-    }
-
-    public void setProvinciaList(List<Provincia> provinciaList) {
-        this.provinciaList = provinciaList;
-    }
-
-    public Pais getCodPais() {
+    public Integer getCodPais() {
         return codPais;
     }
 
-    public void setCodPais(Pais codPais) {
+    public void setCodPais(Integer codPais) {
         this.codPais = codPais;
     }
+
+    public Pais getPais() {
+        return Pais;
+    }
+
+    public void setPais(Pais Pais) {
+        this.Pais = Pais;
+    }
+
+
+
+
 
     @Override
     public int hashCode() {

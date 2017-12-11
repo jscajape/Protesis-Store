@@ -7,7 +7,6 @@ package ec.edu.espe.distribuidas.protesis.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -44,9 +42,11 @@ public class Producto implements Serializable {
     private short porcentajeIva;
     @Column(name = "ESTADO", nullable = false)
     private short estado;
+    @Column(name = "COD_SUBCATEGORIA", nullable = false)
+    private Integer codSubCategoria;
     @JoinColumn(name = "COD_SUBCATEGORIA", referencedColumnName = "COD_SUBCATEGORIA", insertable = false, updatable = false)
     @ManyToOne
-    private SubCategoria codSubcategoria;
+    private SubCategoria Subcategoria;
 
     public Producto() {
     }
@@ -120,22 +120,23 @@ public class Producto implements Serializable {
         this.estado = estado;
     }
 
-    @XmlTransient
-    public List<Compra> getCompraList() {
-        return compraList;
+    public Integer getCodSubCategoria() {
+        return codSubCategoria;
     }
 
-    public void setCompraList(List<Compra> compraList) {
-        this.compraList = compraList;
+    public void setCodSubCategoria(Integer codSubCategoria) {
+        this.codSubCategoria = codSubCategoria;
     }
 
-    public SubCategoria getCodSubcategoria() {
-        return codSubcategoria;
+    public SubCategoria getSubcategoria() {
+        return Subcategoria;
     }
 
-    public void setCodSubcategoria(SubCategoria codSubcategoria) {
-        this.codSubcategoria = codSubcategoria;
+    public void setSubcategoria(SubCategoria Subcategoria) {
+        this.Subcategoria = Subcategoria;
     }
+
+
 
     @Override
     public int hashCode() {

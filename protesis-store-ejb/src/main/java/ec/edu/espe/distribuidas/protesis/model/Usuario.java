@@ -5,10 +5,13 @@
  */
 package ec.edu.espe.distribuidas.protesis.model;
 
+import ec.edu.espe.distribuidas.protesis.enums.TipoIdentificacionEnum;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -29,8 +32,13 @@ public class Usuario implements Serializable {
     @Id
     @Column(name = "COD_USUARIO", nullable = false)
     private Integer codUsuario;
-    @Column(name = "TIPO_IDENTIFICACION", nullable = false, length = 3)
-    private String tipoIdentificacion;
+    @Enumerated(EnumType.STRING)
+    @Column(name="TIPO", length = 3, nullable = false)
+    private TipoIdentificacionEnum tipo;
+    @Column(name = "COD_TIPO_USUARIO", nullable = false)
+    private Integer codTipoUsuario;
+    @Column(name = "COD_Ciudad", nullable = false)
+    private Integer codCiudad;
     @Column(name = "IDENTIFICACION", nullable = false)
     private long identificacion;
     @Column(name = "NOMBRE", nullable = false, length = 100)
@@ -52,10 +60,10 @@ public class Usuario implements Serializable {
     private String calleSecundaria;
     @JoinColumn(name = "COD_CIUDAD", referencedColumnName = "COD_CIUDAD", insertable = false, updatable = false)
     @ManyToOne
-    private Ciudad codCiudad;
+    private Ciudad Ciudad;
     @JoinColumn(name = "COD_TIPO_USUARIO", referencedColumnName = "COD_TIPO_USUARIO", insertable = false, updatable = false)
     @ManyToOne
-    private TipoUsuario codTipoUsuario;
+    private TipoUsuario TipoUsuario;
 
     public Usuario() {
     }
@@ -74,13 +82,14 @@ public class Usuario implements Serializable {
         this.codUsuario = codUsuario;
     }
 
-    public String getTipoIdentificacion() {
-        return tipoIdentificacion;
+    public TipoIdentificacionEnum getTipo() {
+        return tipo;
     }
 
-    public void setTipoIdentificacion(String tipoIdentificacion) {
-        this.tipoIdentificacion = tipoIdentificacion;
+    public void setTipo(TipoIdentificacionEnum tipo) {
+        this.tipo = tipo;
     }
+
 
     public long getIdentificacion() {
         return identificacion;
@@ -154,21 +163,38 @@ public class Usuario implements Serializable {
         this.calleSecundaria = calleSecundaria;
     }
 
-    public Ciudad getCodCiudad() {
-        return codCiudad;
-    }
-
-    public void setCodCiudad(Ciudad codCiudad) {
-        this.codCiudad = codCiudad;
-    }
-
-    public TipoUsuario getCodTipoUsuario() {
+    public Integer getCodTipoUsuario() {
         return codTipoUsuario;
     }
 
-    public void setCodTipoUsuario(TipoUsuario codTipoUsuario) {
+    public void setCodTipoUsuario(Integer codTipoUsuario) {
         this.codTipoUsuario = codTipoUsuario;
     }
+
+    public Integer getCodCiudad() {
+        return codCiudad;
+    }
+
+    public void setCodCiudad(Integer codCiudad) {
+        this.codCiudad = codCiudad;
+    }
+
+    public Ciudad getCiudad() {
+        return Ciudad;
+    }
+
+    public void setCiudad(Ciudad Ciudad) {
+        this.Ciudad = Ciudad;
+    }
+
+    public TipoUsuario getTipoUsuario() {
+        return TipoUsuario;
+    }
+
+    public void setTipoUsuario(TipoUsuario TipoUsuario) {
+        this.TipoUsuario = TipoUsuario;
+    }
+
 
     @Override
     public int hashCode() {

@@ -36,12 +36,16 @@ public class Compra implements Serializable {
     private int cantidad;
     @Column(name = "PRECIO", nullable = false, precision = 8, scale = 2)
     private BigDecimal precio;
+    @Column(name = "COD_PRODUCTO", nullable = false)
+    private Integer codProducto;
+    @Column(name = "COD_PROVEEDOR", nullable = false)
+    private Integer codProveedor;
     @JoinColumn(name = "COD_PRODUCTO", referencedColumnName = "COD_PRODUCTO", insertable = false, updatable = false)
     @ManyToOne
-    private Producto codProducto;
+    private Producto Producto;
     @JoinColumn(name = "COD_PROVEEDOR", referencedColumnName = "COD_PROVEEDOR", insertable = false, updatable = false)
     @ManyToOne
-    private Proveedor codProveedor;
+    private Proveedor Proveedor;
 
     public Compra() {
     }
@@ -83,21 +87,39 @@ public class Compra implements Serializable {
         this.precio = precio;
     }
 
-    public Producto getCodProducto() {
+    public Integer getCodProducto() {
         return codProducto;
     }
 
-    public void setCodProducto(Producto codProducto) {
+    public void setCodProducto(Integer codProducto) {
         this.codProducto = codProducto;
     }
 
-    public Proveedor getCodProveedor() {
+    public Integer getCodProveedor() {
         return codProveedor;
     }
 
-    public void setCodProveedor(Proveedor codProveedor) {
+    public void setCodProveedor(Integer codProveedor) {
         this.codProveedor = codProveedor;
     }
+
+    public Producto getProducto() {
+        return Producto;
+    }
+
+    public void setProducto(Producto Producto) {
+        this.Producto = Producto;
+    }
+
+    public Proveedor getProveedor() {
+        return Proveedor;
+    }
+
+    public void setProveedor(Proveedor Proveedor) {
+        this.Proveedor = Proveedor;
+    }
+
+
 
     @Override
     public int hashCode() {

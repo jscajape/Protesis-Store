@@ -6,14 +6,12 @@
 package ec.edu.espe.distribuidas.protesis.model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -27,6 +25,8 @@ public class Camion implements Serializable {
     @Id
     @Column(name = "COD_CAMION", nullable = false)
     private Integer codCamion;
+    @Column(name = "COD_CONDUCTOR", nullable = false)
+    private Integer codConductor;
     @Column(name = "PLACA", nullable = false, length = 20)
     private String placa;
     @Column(name = "MODELO", nullable = false, length = 100)
@@ -37,7 +37,7 @@ public class Camion implements Serializable {
     private String marca;
     @JoinColumn(name = "COD_CONDUCTOR", referencedColumnName = "COD_CONDUCTOR", insertable = false, updatable = false)
     @ManyToOne
-    private Conductor codConductor;
+    private Conductor Conductor;
 
     public Camion() {
     }
@@ -86,22 +86,24 @@ public class Camion implements Serializable {
         this.marca = marca;
     }
 
-    public Conductor getCodConductor() {
+    public Conductor getConductor() {
+        return Conductor;
+    }
+
+    public void setConductor(Conductor Conductor) {
+        this.Conductor = Conductor;
+    }
+
+    public Integer getCodConductor() {
         return codConductor;
     }
 
-    public void setCodConductor(Conductor codConductor) {
+    public void setCodConductor(Integer codConductor) {
         this.codConductor = codConductor;
     }
 
-    @XmlTransient
-    public List<Entrega> getEntregaList() {
-        return entregaList;
-    }
 
-    public void setEntregaList(List<Entrega> entregaList) {
-        this.entregaList = entregaList;
-    }
+
 
     @Override
     public int hashCode() {
