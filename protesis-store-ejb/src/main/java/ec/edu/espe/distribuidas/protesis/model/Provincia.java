@@ -7,20 +7,13 @@ package ec.edu.espe.distribuidas.protesis.model;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.swing.plaf.synth.Region;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -28,30 +21,19 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author js_cm
  */
 @Entity
-@Table(name = "provincia")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Provincia.findAll", query = "SELECT p FROM Provincia p"),
-    @NamedQuery(name = "Provincia.findByCodProvincia", query = "SELECT p FROM Provincia p WHERE p.codProvincia = :codProvincia"),
-    @NamedQuery(name = "Provincia.findByNombre", query = "SELECT p FROM Provincia p WHERE p.nombre = :nombre")})
+@Table(name = "PROVINCIA")
+
 public class Provincia implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "COD_PROVINCIA", nullable = false)
     private Integer codProvincia;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
     @Column(name = "NOMBRE", nullable = false, length = 100)
     private String nombre;
-    @JoinColumn(name = "COD_REGION", referencedColumnName = "COD_REGION")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "COD_REGION", referencedColumnName = "COD_REGION", insertable = false, updatable = false)
+    @ManyToOne
     private Region codRegion;
-    @OneToMany(mappedBy = "codProvincia", fetch = FetchType.EAGER)
-    private List<Ciudad> ciudadList;
 
     public Provincia() {
     }
@@ -60,10 +42,6 @@ public class Provincia implements Serializable {
         this.codProvincia = codProvincia;
     }
 
-    public Provincia(Integer codProvincia, String nombre) {
-        this.codProvincia = codProvincia;
-        this.nombre = nombre;
-    }
 
     public Integer getCodProvincia() {
         return codProvincia;

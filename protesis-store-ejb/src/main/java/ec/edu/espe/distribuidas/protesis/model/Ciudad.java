@@ -7,20 +7,12 @@ package ec.edu.espe.distribuidas.protesis.model;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -28,32 +20,18 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author js_cm
  */
 @Entity
-@Table(name = "ciudad")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Ciudad.findAll", query = "SELECT c FROM Ciudad c"),
-    @NamedQuery(name = "Ciudad.findByCodCiudad", query = "SELECT c FROM Ciudad c WHERE c.codCiudad = :codCiudad"),
-    @NamedQuery(name = "Ciudad.findByNombre", query = "SELECT c FROM Ciudad c WHERE c.nombre = :nombre")})
+@Table(name = "CIUDAD")
 public class Ciudad implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "COD_CIUDAD", nullable = false)
     private Integer codCiudad;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
     @Column(name = "NOMBRE", nullable = false, length = 100)
     private String nombre;
-    @JoinColumn(name = "COD_PROVINCIA", referencedColumnName = "COD_PROVINCIA")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "COD_PROVINCIA", referencedColumnName = "COD_PROVINCIA", insertable = false, updatable = false)
+    @ManyToOne
     private Provincia codProvincia;
-    @OneToMany(mappedBy = "codCiudad", fetch = FetchType.EAGER)
-    private List<Proveedor> proveedorList;
-    @OneToMany(mappedBy = "codCiudad", fetch = FetchType.EAGER)
-    private List<Usuario> usuarioList;
 
     public Ciudad() {
     }
@@ -62,10 +40,6 @@ public class Ciudad implements Serializable {
         this.codCiudad = codCiudad;
     }
 
-    public Ciudad(Integer codCiudad, String nombre) {
-        this.codCiudad = codCiudad;
-        this.nombre = nombre;
-    }
 
     public Integer getCodCiudad() {
         return codCiudad;

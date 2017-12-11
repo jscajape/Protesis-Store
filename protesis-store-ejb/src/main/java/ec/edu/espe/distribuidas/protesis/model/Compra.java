@@ -8,61 +8,39 @@ package ec.edu.espe.distribuidas.protesis.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author js_cm
  */
 @Entity
-@Table(name = "compra")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Compra.findAll", query = "SELECT c FROM Compra c"),
-    @NamedQuery(name = "Compra.findByCodCompra", query = "SELECT c FROM Compra c WHERE c.codCompra = :codCompra"),
-    @NamedQuery(name = "Compra.findByFechaCompra", query = "SELECT c FROM Compra c WHERE c.fechaCompra = :fechaCompra"),
-    @NamedQuery(name = "Compra.findByCantidad", query = "SELECT c FROM Compra c WHERE c.cantidad = :cantidad"),
-    @NamedQuery(name = "Compra.findByPrecio", query = "SELECT c FROM Compra c WHERE c.precio = :precio")})
+@Table(name = "COMPRA")
 public class Compra implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "COD_COMPRA", nullable = false)
     private Integer codCompra;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "FECHA_COMPRA", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fechaCompra;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "CANTIDAD", nullable = false)
     private int cantidad;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "PRECIO", nullable = false, precision = 8, scale = 2)
     private BigDecimal precio;
-    @JoinColumn(name = "COD_PRODUCTO", referencedColumnName = "COD_PRODUCTO")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "COD_PRODUCTO", referencedColumnName = "COD_PRODUCTO", insertable = false, updatable = false)
+    @ManyToOne
     private Producto codProducto;
-    @JoinColumn(name = "COD_PROVEEDOR", referencedColumnName = "COD_PROVEEDOR")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "COD_PROVEEDOR", referencedColumnName = "COD_PROVEEDOR", insertable = false, updatable = false)
+    @ManyToOne
     private Proveedor codProveedor;
 
     public Compra() {
@@ -72,12 +50,6 @@ public class Compra implements Serializable {
         this.codCompra = codCompra;
     }
 
-    public Compra(Integer codCompra, Date fechaCompra, int cantidad, BigDecimal precio) {
-        this.codCompra = codCompra;
-        this.fechaCompra = fechaCompra;
-        this.cantidad = cantidad;
-        this.precio = precio;
-    }
 
     public Integer getCodCompra() {
         return codCompra;

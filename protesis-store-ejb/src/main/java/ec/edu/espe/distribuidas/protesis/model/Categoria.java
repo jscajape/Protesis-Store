@@ -7,18 +7,10 @@ package ec.edu.espe.distribuidas.protesis.model;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -26,27 +18,15 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author js_cm
  */
 @Entity
-@Table(name = "categoria")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Categoria.findAll", query = "SELECT c FROM Categoria c"),
-    @NamedQuery(name = "Categoria.findByCodCategoria", query = "SELECT c FROM Categoria c WHERE c.codCategoria = :codCategoria"),
-    @NamedQuery(name = "Categoria.findByNombre", query = "SELECT c FROM Categoria c WHERE c.nombre = :nombre")})
+@Table(name = "CATEGORIA")
 public class Categoria implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "COD_CATEGORIA", nullable = false)
     private Integer codCategoria;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 200)
     @Column(name = "NOMBRE", nullable = false, length = 200)
     private String nombre;
-    @OneToMany(mappedBy = "codCategoria", fetch = FetchType.EAGER)
-    private List<SubCategoria> subCategoriaList;
 
     public Categoria() {
     }

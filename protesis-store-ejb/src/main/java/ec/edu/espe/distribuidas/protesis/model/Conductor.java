@@ -9,20 +9,12 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -30,71 +22,32 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author js_cm
  */
 @Entity
-@Table(name = "conductor")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Conductor.findAll", query = "SELECT c FROM Conductor c"),
-    @NamedQuery(name = "Conductor.findByCodConductor", query = "SELECT c FROM Conductor c WHERE c.codConductor = :codConductor"),
-    @NamedQuery(name = "Conductor.findByNombre", query = "SELECT c FROM Conductor c WHERE c.nombre = :nombre"),
-    @NamedQuery(name = "Conductor.findByApellido", query = "SELECT c FROM Conductor c WHERE c.apellido = :apellido"),
-    @NamedQuery(name = "Conductor.findByTipoIdentificion", query = "SELECT c FROM Conductor c WHERE c.tipoIdentificion = :tipoIdentificion"),
-    @NamedQuery(name = "Conductor.findByIdentificacion", query = "SELECT c FROM Conductor c WHERE c.identificacion = :identificacion"),
-    @NamedQuery(name = "Conductor.findByFechaNacimiento", query = "SELECT c FROM Conductor c WHERE c.fechaNacimiento = :fechaNacimiento"),
-    @NamedQuery(name = "Conductor.findByLicencia", query = "SELECT c FROM Conductor c WHERE c.licencia = :licencia")})
+@Table(name = "CONDUCTOR")
 public class Conductor implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "COD_CONDUCTOR", nullable = false)
     private Integer codConductor;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
     @Column(name = "NOMBRE", nullable = false, length = 100)
     private String nombre;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
     @Column(name = "APELLIDO", nullable = false, length = 100)
     private String apellido;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 3)
     @Column(name = "TIPO_IDENTIFICION", nullable = false, length = 3)
     private String tipoIdentificion;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "IDENTIFICACION", nullable = false)
     private long identificacion;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "FECHA_NACIMIENTO", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fechaNacimiento;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "LICENCIA", nullable = false)
     private BigInteger licencia;
-    @OneToMany(mappedBy = "codConductor", fetch = FetchType.EAGER)
-    private List<Camion> camionList;
 
     public Conductor() {
     }
 
     public Conductor(Integer codConductor) {
         this.codConductor = codConductor;
-    }
-
-    public Conductor(Integer codConductor, String nombre, String apellido, String tipoIdentificion, long identificacion, Date fechaNacimiento, BigInteger licencia) {
-        this.codConductor = codConductor;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.tipoIdentificion = tipoIdentificion;
-        this.identificacion = identificacion;
-        this.fechaNacimiento = fechaNacimiento;
-        this.licencia = licencia;
     }
 
     public Integer getCodConductor() {

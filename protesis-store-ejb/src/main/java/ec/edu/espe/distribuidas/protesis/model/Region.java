@@ -7,20 +7,12 @@ package ec.edu.espe.distribuidas.protesis.model;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -28,29 +20,17 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author js_cm
  */
 @Entity
-@Table(name = "region")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Region.findAll", query = "SELECT r FROM Region r"),
-    @NamedQuery(name = "Region.findByCodRegion", query = "SELECT r FROM Region r WHERE r.codRegion = :codRegion"),
-    @NamedQuery(name = "Region.findByNombre", query = "SELECT r FROM Region r WHERE r.nombre = :nombre")})
+@Table(name = "REGION")
 public class Region implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "COD_REGION", nullable = false)
     private Integer codRegion;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
     @Column(name = "NOMBRE", nullable = false, length = 100)
     private String nombre;
-    @OneToMany(mappedBy = "codRegion", fetch = FetchType.EAGER)
-    private List<Provincia> provinciaList;
-    @JoinColumn(name = "COD_PAIS", referencedColumnName = "COD_PAIS")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "COD_PAIS", referencedColumnName = "COD_PAIS", insertable = false, updatable = false)
+    @ManyToOne
     private Pais codPais;
 
     public Region() {
@@ -60,10 +40,6 @@ public class Region implements Serializable {
         this.codRegion = codRegion;
     }
 
-    public Region(Integer codRegion, String nombre) {
-        this.codRegion = codRegion;
-        this.nombre = nombre;
-    }
 
     public Integer getCodRegion() {
         return codRegion;

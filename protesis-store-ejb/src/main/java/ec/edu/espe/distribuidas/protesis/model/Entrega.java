@@ -6,49 +6,32 @@
 package ec.edu.espe.distribuidas.protesis.model;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author js_cm
  */
 @Entity
-@Table(name = "entrega")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Entrega.findAll", query = "SELECT e FROM Entrega e"),
-    @NamedQuery(name = "Entrega.findByCodEntrega", query = "SELECT e FROM Entrega e WHERE e.codEntrega = :codEntrega"),
-    @NamedQuery(name = "Entrega.findByDescripcion", query = "SELECT e FROM Entrega e WHERE e.descripcion = :descripcion")})
+@Table(name = "ENTREGA")
 public class Entrega implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "COD_ENTREGA", nullable = false)
     private Integer codEntrega;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 200)
     @Column(name = "DESCRIPCION", nullable = false, length = 200)
     private String descripcion;
-    @JoinColumn(name = "COD_VENTA", referencedColumnName = "COD_VENTA")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "COD_VENTA", referencedColumnName = "COD_VENTA", insertable = false, updatable = false)
+    @ManyToOne
     private Venta codVenta;
-    @JoinColumn(name = "COD_CAMION", referencedColumnName = "COD_CAMION")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "COD_CAMION", referencedColumnName = "COD_CAMION", insertable = false, updatable = false)
+    @ManyToOne
     private Camion codCamion;
 
     public Entrega() {
@@ -56,11 +39,6 @@ public class Entrega implements Serializable {
 
     public Entrega(Integer codEntrega) {
         this.codEntrega = codEntrega;
-    }
-
-    public Entrega(Integer codEntrega, String descripcion) {
-        this.codEntrega = codEntrega;
-        this.descripcion = descripcion;
     }
 
     public Integer getCodEntrega() {

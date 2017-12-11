@@ -7,20 +7,13 @@ package ec.edu.espe.distribuidas.protesis.model;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -28,28 +21,16 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author js_cm
  */
 @Entity
-@Table(name = "sub_categoria")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "SubCategoria.findAll", query = "SELECT s FROM SubCategoria s"),
-    @NamedQuery(name = "SubCategoria.findByCodSubcategoria", query = "SELECT s FROM SubCategoria s WHERE s.codSubcategoria = :codSubcategoria"),
-    @NamedQuery(name = "SubCategoria.findByDescripcion", query = "SELECT s FROM SubCategoria s WHERE s.descripcion = :descripcion")})
+@Table(name = "SUB_CATEGORIA")
 public class SubCategoria implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "COD_SUBCATEGORIA", nullable = false)
     private Integer codSubcategoria;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 200)
     @Column(name = "DESCRIPCION", nullable = false, length = 200)
     private String descripcion;
-    @OneToMany(mappedBy = "codSubcategoria", fetch = FetchType.EAGER)
-    private List<Producto> productoList;
-    @JoinColumn(name = "COD_CATEGORIA", referencedColumnName = "COD_CATEGORIA")
+    @JoinColumn(name = "COD_CATEGORIA", referencedColumnName = "COD_CATEGORIA", insertable= false, updatable = false)
     @ManyToOne(fetch = FetchType.EAGER)
     private Categoria codCategoria;
 
@@ -60,10 +41,6 @@ public class SubCategoria implements Serializable {
         this.codSubcategoria = codSubcategoria;
     }
 
-    public SubCategoria(Integer codSubcategoria, String descripcion) {
-        this.codSubcategoria = codSubcategoria;
-        this.descripcion = descripcion;
-    }
 
     public Integer getCodSubcategoria() {
         return codSubcategoria;

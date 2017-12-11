@@ -7,20 +7,12 @@ package ec.edu.espe.distribuidas.protesis.model;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -28,65 +20,30 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author js_cm
  */
 @Entity
-@Table(name = "proveedor")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Proveedor.findAll", query = "SELECT p FROM Proveedor p"),
-    @NamedQuery(name = "Proveedor.findByCodProveedor", query = "SELECT p FROM Proveedor p WHERE p.codProveedor = :codProveedor"),
-    @NamedQuery(name = "Proveedor.findByTipoIdentificacion", query = "SELECT p FROM Proveedor p WHERE p.tipoIdentificacion = :tipoIdentificacion"),
-    @NamedQuery(name = "Proveedor.findByIdentificacion", query = "SELECT p FROM Proveedor p WHERE p.identificacion = :identificacion"),
-    @NamedQuery(name = "Proveedor.findByNombre", query = "SELECT p FROM Proveedor p WHERE p.nombre = :nombre"),
-    @NamedQuery(name = "Proveedor.findByApellido", query = "SELECT p FROM Proveedor p WHERE p.apellido = :apellido"),
-    @NamedQuery(name = "Proveedor.findByEmail", query = "SELECT p FROM Proveedor p WHERE p.email = :email"),
-    @NamedQuery(name = "Proveedor.findByCallePrincipal", query = "SELECT p FROM Proveedor p WHERE p.callePrincipal = :callePrincipal"),
-    @NamedQuery(name = "Proveedor.findByCalleSecundaria", query = "SELECT p FROM Proveedor p WHERE p.calleSecundaria = :calleSecundaria")})
+@Table(name = "PROVEEDOR")
+
 public class Proveedor implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "COD_PROVEEDOR", nullable = false)
     private Integer codProveedor;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 3)
     @Column(name = "TIPO_IDENTIFICACION", nullable = false, length = 3)
     private String tipoIdentificacion;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "IDENTIFICACION", nullable = false)
     private long identificacion;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
     @Column(name = "NOMBRE", nullable = false, length = 100)
     private String nombre;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
     @Column(name = "APELLIDO", nullable = false, length = 100)
     private String apellido;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
     @Column(name = "EMAIL", nullable = false, length = 100)
     private String email;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
     @Column(name = "CALLE_PRINCIPAL", nullable = false, length = 100)
     private String callePrincipal;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
     @Column(name = "CALLE_SECUNDARIA", nullable = false, length = 100)
     private String calleSecundaria;
-    @OneToMany(mappedBy = "codProveedor", fetch = FetchType.EAGER)
-    private List<Compra> compraList;
-    @JoinColumn(name = "COD_CIUDAD", referencedColumnName = "COD_CIUDAD")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "COD_CIUDAD", referencedColumnName = "COD_CIUDAD", insertable = false, updatable = false)
+    @ManyToOne
     private Ciudad codCiudad;
 
     public Proveedor() {
@@ -96,16 +53,6 @@ public class Proveedor implements Serializable {
         this.codProveedor = codProveedor;
     }
 
-    public Proveedor(Integer codProveedor, String tipoIdentificacion, long identificacion, String nombre, String apellido, String email, String callePrincipal, String calleSecundaria) {
-        this.codProveedor = codProveedor;
-        this.tipoIdentificacion = tipoIdentificacion;
-        this.identificacion = identificacion;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.email = email;
-        this.callePrincipal = callePrincipal;
-        this.calleSecundaria = calleSecundaria;
-    }
 
     public Integer getCodProveedor() {
         return codProveedor;

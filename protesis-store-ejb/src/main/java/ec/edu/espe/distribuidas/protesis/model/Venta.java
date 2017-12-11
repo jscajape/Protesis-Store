@@ -8,19 +8,12 @@ package ec.edu.espe.distribuidas.protesis.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -29,58 +22,52 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "venta")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Venta.findAll", query = "SELECT v FROM Venta v"),
-    @NamedQuery(name = "Venta.findByCodVenta", query = "SELECT v FROM Venta v WHERE v.codVenta = :codVenta"),
-    @NamedQuery(name = "Venta.findByCodUsuario", query = "SELECT v FROM Venta v WHERE v.codUsuario = :codUsuario"),
-    @NamedQuery(name = "Venta.findByCodProducto", query = "SELECT v FROM Venta v WHERE v.codProducto = :codProducto"),
-    @NamedQuery(name = "Venta.findByFechaEmision", query = "SELECT v FROM Venta v WHERE v.fechaEmision = :fechaEmision"),
-    @NamedQuery(name = "Venta.findByCantidad", query = "SELECT v FROM Venta v WHERE v.cantidad = :cantidad"),
-    @NamedQuery(name = "Venta.findByValorFinal", query = "SELECT v FROM Venta v WHERE v.valorFinal = :valorFinal")})
+
 public class Venta implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "COD_VENTA", nullable = false)
     private Integer codVenta;
     @Column(name = "COD_USUARIO")
     private Integer codUsuario;
     @Column(name = "COD_PRODUCTO")
     private Integer codProducto;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "FECHA_EMISION", nullable = false)
     private int fechaEmision;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "CANTIDAD", nullable = false)
     private int cantidad;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "VALOR_FINAL", nullable = false, precision = 8, scale = 2)
     private BigDecimal valorFinal;
-    @JoinColumn(name = "COD_CANAL", referencedColumnName = "COD_CANAL")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "COD_CANAL", referencedColumnName = "COD_CANAL", insertable = false, updatable = false)
+    @ManyToOne
     private Canal codCanal;
-    @OneToMany(mappedBy = "codVenta", fetch = FetchType.EAGER)
-    private List<Entrega> entregaList;
+    
+    @JoinColumn(name = "COD_PAGO", referencedColumnName = "COD_PAGO", insertable = false, updatable = false)
+    @ManyToOne
+    private Pago codPago;
+    
+    @JoinColumn(name = "COD_USUARIO", referencedColumnName = "COD_USUARIO", insertable = false, updatable = false)
+    @ManyToOne
+    private Usuario codUsuario;
+
+    @JoinColumn(name = "COD_PRODUCTO", referencedColumnName = "COD_PRODUCTO", insertable = false, updatable = false)
+    @ManyToOne
+    private Producto codProducto;
+    
+    public Pago getCodPago() {
+        return codPago;
+    }
+
+    public void setCodPago(Pago codPago) {
+        this.codPago = codPago;
+    }
 
     public Venta() {
     }
 
     public Venta(Integer codVenta) {
         this.codVenta = codVenta;
-    }
-
-    public Venta(Integer codVenta, int fechaEmision, int cantidad, BigDecimal valorFinal) {
-        this.codVenta = codVenta;
-        this.fechaEmision = fechaEmision;
-        this.cantidad = cantidad;
-        this.valorFinal = valorFinal;
     }
 
     public Integer getCodVenta() {
