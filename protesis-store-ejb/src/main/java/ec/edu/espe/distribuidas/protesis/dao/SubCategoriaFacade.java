@@ -6,9 +6,11 @@
 package ec.edu.espe.distribuidas.protesis.dao;
 
 import ec.edu.espe.distribuidas.protesis.model.SubCategoria;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +30,13 @@ public class SubCategoriaFacade extends AbstractFacade<SubCategoria> {
     public SubCategoriaFacade() {
         super(SubCategoria.class);
     }
+    
+    
+    public List<SubCategoria> findByDescripcion(String nombre) {
+        Query qry = this.em.createQuery("SELECT obj FROM SubCategoria obj WHERE obj.descripcion=?1");
+        qry.setParameter(1, nombre);
+        return qry.getResultList();
+    }
+    
     
 }

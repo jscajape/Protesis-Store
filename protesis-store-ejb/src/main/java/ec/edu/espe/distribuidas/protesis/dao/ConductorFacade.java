@@ -6,9 +6,11 @@
 package ec.edu.espe.distribuidas.protesis.dao;
 
 import ec.edu.espe.distribuidas.protesis.model.Conductor;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +30,13 @@ public class ConductorFacade extends AbstractFacade<Conductor> {
     public ConductorFacade() {
         super(Conductor.class);
     }
+    
+    public List<Conductor> findByNombreApellido(String nombre, String apellido) {
+        Query qry = this.em.createQuery("SELECT obj FROM Conductor obj WHERE obj.nombre =?1 AND obj.apellido = ?2");
+        qry.setParameter(1, nombre);
+        qry.setParameter(2, apellido);
+        return qry.getResultList();
+    }
+    
     
 }

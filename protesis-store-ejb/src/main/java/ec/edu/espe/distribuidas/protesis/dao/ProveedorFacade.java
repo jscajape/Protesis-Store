@@ -6,9 +6,11 @@
 package ec.edu.espe.distribuidas.protesis.dao;
 
 import ec.edu.espe.distribuidas.protesis.model.Proveedor;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,4 +31,16 @@ public class ProveedorFacade extends AbstractFacade<Proveedor> {
         super(Proveedor.class);
     }
     
+    public List<Proveedor> findByNombreApellido(String nombre, String apellido) {
+        Query qry = this.em.createQuery("SELECT obj FROM Proveedor obj WHERE obj.nombre =?1 AND obj.apellido = ?2");
+        qry.setParameter(1, nombre);
+        qry.setParameter(2, apellido);
+        return qry.getResultList();
+    }
+    
+    public List<Proveedor> findByIdentificacion(Integer identificacion) {
+        Query qry = this.em.createQuery("SELECT obj FROM Proveedor obj WHERE obj.identificacion =?1");
+        qry.setParameter(1, identificacion);
+        return qry.getResultList();
+    }
 }

@@ -6,9 +6,12 @@
 package ec.edu.espe.distribuidas.protesis.dao;
 
 import ec.edu.espe.distribuidas.protesis.model.Producto;
+import java.math.BigDecimal;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,4 +32,10 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         super(Producto.class);
     }
     
+    public List<Producto> findByNombreApellido(String nombre, BigDecimal precio) {
+        Query qry = this.em.createQuery("SELECT obj FROM Producto obj WHERE obj.nombre =?1 AND obj.precio = ?2");
+        qry.setParameter(1, nombre);
+        qry.setParameter(2, precio);
+        return qry.getResultList();
+    }
 }

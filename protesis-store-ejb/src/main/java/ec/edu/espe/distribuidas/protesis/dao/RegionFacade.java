@@ -6,9 +6,11 @@
 package ec.edu.espe.distribuidas.protesis.dao;
 
 import ec.edu.espe.distribuidas.protesis.model.Region;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +29,12 @@ public class RegionFacade extends AbstractFacade<Region> {
 
     public RegionFacade() {
         super(Region.class);
+    }
+    
+    public List<Region> findByNombre(String nombre) {
+        Query qry = this.em.createQuery("SELECT obj FROM Region obj WHERE obj.nombre=?1");
+        qry.setParameter(1, nombre);
+        return qry.getResultList();
     }
     
 }

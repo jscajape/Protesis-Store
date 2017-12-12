@@ -5,7 +5,8 @@
  */
 package ec.edu.espe.distribuidas.protesis.dao;
 
-import ec.edu.espe.distribuidas.protesis.model.Camion;
+import ec.edu.espe.distribuidas.protesis.model.Categoria;
+import ec.edu.espe.distribuidas.protesis.model.Pago;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -17,8 +18,7 @@ import javax.persistence.Query;
  * @author js_cm
  */
 @Stateless
-public class CamionFacade extends AbstractFacade<Camion> {
-
+public class PagoFacade extends AbstractFacade<Pago> {
     @PersistenceContext(unitName = "ec.edu.espe.proyecto.protesis_protesis-store-ejb_ejb_1PU")
     private EntityManager em;
 
@@ -27,14 +27,13 @@ public class CamionFacade extends AbstractFacade<Camion> {
         return em;
     }
 
-    public CamionFacade() {
-        super(Camion.class);
+    public PagoFacade() {
+        super(Pago.class);
     }
     
-    public List<Camion> findByConductor(Integer codigoConductor) {
-        Query qry = this.em.createQuery("SELECT obj FROM Camion obj WHERE obj.codConductor=?1");
-        qry.setParameter(1, codigoConductor);
+    public List<Pago> findByCodigo(Integer codPago) {
+        Query qry = this.em.createQuery("SELECT obj FROM Pago obj WHERE obj.codPago =?1");
+        qry.setParameter(1, codPago);
         return qry.getResultList();
     }
-    
 }

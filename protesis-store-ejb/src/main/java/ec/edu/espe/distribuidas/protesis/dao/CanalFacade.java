@@ -6,9 +6,11 @@
 package ec.edu.espe.distribuidas.protesis.dao;
 
 import ec.edu.espe.distribuidas.protesis.model.Canal;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +29,12 @@ public class CanalFacade extends AbstractFacade<Canal> {
 
     public CanalFacade() {
         super(Canal.class);
+    }
+    
+    public List<Canal> findByCodigo(Integer codCanal) {
+        Query qry = this.em.createQuery("SELECT obj FROM Canal obj WHERE obj.codCanal =?1");
+        qry.setParameter(1, codCanal);
+        return qry.getResultList();
     }
     
 }

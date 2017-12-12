@@ -6,9 +6,11 @@
 package ec.edu.espe.distribuidas.protesis.dao;
 
 import ec.edu.espe.distribuidas.protesis.model.Categoria;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,4 +31,9 @@ public class CategoriaFacade extends AbstractFacade<Categoria> {
         super(Categoria.class);
     }
     
+    public List<Categoria> findByCodigo(Integer codCategoria) {
+        Query qry = this.em.createQuery("SELECT obj FROM Categoria obj WHERE obj.codCategoria =?1");
+        qry.setParameter(1, codCategoria);
+        return qry.getResultList();
+    }
 }

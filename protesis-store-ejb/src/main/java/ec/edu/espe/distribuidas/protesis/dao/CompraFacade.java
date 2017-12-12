@@ -6,9 +6,11 @@
 package ec.edu.espe.distribuidas.protesis.dao;
 
 import ec.edu.espe.distribuidas.protesis.model.Compra;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,4 +31,9 @@ public class CompraFacade extends AbstractFacade<Compra> {
         super(Compra.class);
     }
     
+    public List<Compra> findByCodigo(Integer codCompra) {
+        Query qry = this.em.createQuery("SELECT obj FROM Compra obj WHERE obj.codCompra =?1");
+        qry.setParameter(1, codCompra);
+        return qry.getResultList();
+    }
 }

@@ -6,9 +6,11 @@
 package ec.edu.espe.distribuidas.protesis.dao;
 
 import ec.edu.espe.distribuidas.protesis.model.Venta;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +29,12 @@ public class VentaFacade extends AbstractFacade<Venta> {
 
     public VentaFacade() {
         super(Venta.class);
+    }
+    
+    public List<Venta> findByVenta(Integer codigo) {
+        Query qry = this.em.createQuery("SELECT obj FROM Venta obj WHERE obj.codVenta=?1");
+        qry.setParameter(1, codigo);
+        return qry.getResultList();
     }
     
 }
