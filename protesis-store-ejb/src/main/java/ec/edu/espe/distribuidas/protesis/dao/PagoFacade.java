@@ -5,7 +5,7 @@
  */
 package ec.edu.espe.distribuidas.protesis.dao;
 
-import ec.edu.espe.distribuidas.protesis.model.Categoria;
+import ec.edu.espe.distribuidas.protesis.enums.TipoPagoEnum;
 import ec.edu.espe.distribuidas.protesis.model.Pago;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -34,6 +34,12 @@ public class PagoFacade extends AbstractFacade<Pago> {
     public List<Pago> findByCodigo(Integer codPago) {
         Query qry = this.em.createQuery("SELECT obj FROM Pago obj WHERE obj.codPago =?1");
         qry.setParameter(1, codPago);
+        return qry.getResultList();
+    }
+    
+    public List<Pago> findByTipo(TipoPagoEnum tipo) {
+        Query qry = this.em.createQuery("SELECT obj FROM Pago obj WHERE obj.tipo=?1");
+        qry.setParameter(1, tipo);
         return qry.getResultList();
     }
 }

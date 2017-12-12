@@ -5,10 +5,13 @@
  */
 package ec.edu.espe.distribuidas.protesis.dao;
 
+import ec.edu.espe.distribuidas.protesis.model.Canal;
 import ec.edu.espe.distribuidas.protesis.model.TipoUsuario;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +30,12 @@ public class TipoUsuarioFacade extends AbstractFacade<TipoUsuario> {
 
     public TipoUsuarioFacade() {
         super(TipoUsuario.class);
+    }
+    
+    public List<TipoUsuario> findByCodigo(Integer codTipoUsuario) {
+        Query qry = this.em.createQuery("SELECT obj FROM TipoUsuario obj WHERE obj.codTipoUsuario =?1");
+        qry.setParameter(1, codTipoUsuario);
+        return qry.getResultList();
     }
     
 }

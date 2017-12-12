@@ -5,6 +5,7 @@
  */
 package ec.edu.espe.distribuidas.protesis.dao;
 
+import ec.edu.espe.distribuidas.protesis.enums.TipoIdentificacionEnum;
 import ec.edu.espe.distribuidas.protesis.model.Conductor;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -38,5 +39,10 @@ public class ConductorFacade extends AbstractFacade<Conductor> {
         return qry.getResultList();
     }
     
+    public List<Conductor> findByTipo(TipoIdentificacionEnum tipo) {
+        Query qry = this.em.createQuery("SELECT obj FROM Conductor obj WHERE obj.tipo=?1");
+        qry.setParameter(1, tipo);
+        return qry.getResultList();
+    }
     
 }

@@ -5,6 +5,8 @@
  */
 package ec.edu.espe.distribuidas.protesis.dao;
 
+import ec.edu.espe.distribuidas.protesis.enums.TipoIdentificacionEnum;
+import ec.edu.espe.distribuidas.protesis.model.Conductor;
 import ec.edu.espe.distribuidas.protesis.model.Proveedor;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -41,6 +43,12 @@ public class ProveedorFacade extends AbstractFacade<Proveedor> {
     public List<Proveedor> findByIdentificacion(Integer identificacion) {
         Query qry = this.em.createQuery("SELECT obj FROM Proveedor obj WHERE obj.identificacion =?1");
         qry.setParameter(1, identificacion);
+        return qry.getResultList();
+    }
+    
+    public List<Proveedor> findByTipo(TipoIdentificacionEnum tipo) {
+        Query qry = this.em.createQuery("SELECT obj FROM Proveedor obj WHERE obj.tipo=?1");
+        qry.setParameter(1, tipo);
         return qry.getResultList();
     }
 }
